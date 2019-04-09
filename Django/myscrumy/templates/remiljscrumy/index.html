@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> SIGN UP | NEW USER</title>
+</head>
+<style type="text/css">
+body{
+    background-color: orange;
+}
+    form{
+        width: 30%;
+        height: inherit;
+        margin: 60px auto;
+        background-color: brown;
+        padding: 15px;
+        border:1px dashed white;
+        align-content: center;
+
+    }
+    button{
+        background-color: orange;
+        border: 0px;
+        margin: auto ;
+        padding: 5px;
+        float: right;
+    }
+    button:hover{
+        background-color: blue;
+    }
+    input{
+        border-radius: 10px;
+        width:95%;
+        align-self: center;
+    }
+    input:focus{
+        border-color:orange;
+    }
+    h2{
+        text-transform: uppercase;
+        text-align: center;
+        background-color: whitesmoke;
+        width: 29%;
+        margin: auto;
+    }
+
+</style>
+<body>
+    {% block content%}
+<h2>Sign Up to RemiljScrumy</h2>
+<form method="post">
+    {% csrf_token %}
+    {% for field in form %}
+    <p>
+        {{ field.label_tag }}<br>
+        {{ field }}
+        {% if field.help_text %}<br>
+        <small>{{field.help_text}}</small>
+        {% endif %}
+        {% for error in field.errors %}<br>
+        <p>{{ error }}</p>
+        {% endfor %}
+    </p>
+    {% endfor %}
+    <button type="submit">Sign Up</button>
+</form>
+{% endblock %}
+</body>
+</html>

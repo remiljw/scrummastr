@@ -1,0 +1,33 @@
+.full-box{
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    border: 2px solid black;
+    padding: 10px;
+  }
+  .top-box{
+    display: table-cell;
+    vertical-align: middle;
+    font-size: 10pt;
+    text-align: center;
+    border: 1px solid gray;
+    border-top: 2px solid black;
+    padding: 10px;
+  }
+  .reg-box{
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    border: 1px solid gray;
+    padding: 10px;
+  }
+  .intro{
+      display: table;
+      font-size: 10pt;
+      table-layout: fixed;
+      width: inherit;
+      border: 2px solid black;
+      border-collapse: collapse;
+      word-wrap: break-word;
+      margin: 0px auto;
+  }

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <h4>{{dataservice.message}}</h4>
+  <!-- <a (click)="logout()">LOGOUT</a>
+  <li><a (click)="logout()" onabort="" id="logout">LOGOUT</a></li> -->
+  <p>{{dataservice.username}} - {{dataservice.role}}</p>
+  <button (click)="logout()" >Logout</button>
+  
+      <!-- <input (click)="logout()" class="btn btn- logoutbtn" type="button" value="LOGOUT"> -->
+  <div class="intro">
+          <div class="table-row">
+              <th colspan="6" >Available Tasks</th>
+          </div>
+            <div style="display: table-row">
+              <th class="full-box">Users</th>
+              <th class="full-box">Weekly Goals</th>
+              <th class="full-box">Daily Target</th>
+              <th class="full-box">Verify Goals</th>
+              <th class="full-box">Done Goals</th>
+              <th class="full-box">Remove Goal</th>
+           </div>
+      
+    <ng-container *ngFor="let user of dataservice.users">
+        <div *ngIf="user.scrumygoals_set.length == 0" style="display: table-row;"
+        dragula="mainTable" [attr.id]= " 'u' + user.id">
+        <td class="full-box" id="author" colspan="6">{{user.nickname}} - NO TASKS ASSIGNED</td>
+      </div>
+        <div style="display: table-row" *ngFor="let goal of user.scrumygoals_set; let j = index; let k = count" dragula ='mainTable' [attr.id] = "goal.id">
+          <td *ngIf= "j == 0"  [attr.rowspan] = "k" class="full-box" id="author">{{user.nickname}}</td>
+          <div  *ngFor="let arrItem of arrCount" [ngClass] = "j == 0 ? 'top-box' : 'reg-box'" [innerText] = "goal.goal_status == arrItem ? goal.id + ') ' + goal.goal_name : '-' " 
+          [attr.id]  = "goal.goal_status == arrItem ? arrItem : 'blank'" (doubleclick) = "goal.goal_status == arrItem ? editGoal($event) : doNothing()" ></div>
+          <div  [ngClass] = "j == 0 ? 'top-box' : 'reg-box'" id="remove" >-</div>
+        </div>
+    </ng-container>
+    
+    </div>
+
+  <div style="margin:20px auto">
+    <h3><u>ADD TASKS</u></h3>
+    <form (ngSubmit) = "addGoal()">
+      <textarea rows="4" cols="40" id="goal" [(ngModel)]="dataservice.goal_name" name="goal"></textarea><br><br>
+      <br>
+      <input type="submit" value="Add Task">
+    </form>
+  </div>
+
+
+</body>
+</html>
+

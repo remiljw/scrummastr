@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=   , initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Django Home</title>
+    <link rel="stylesheet" href="{% static 'landingPage.css' %}">
+    <style>
+        table{
+            border: 1px solid white;
+        }
+        th,td{
+          text-align: center;
+          width: 30rem;  
+          border-right: 1px solid white;
+        }
+        td{
+            border-top: 1px solid white;
+        }
+        thead{
+            border-bottom: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <!-- <table>
+        <thead>
+            <th>User</th>
+            <th>Weekly Goals</th>
+            <th>Daily Goals</th>
+            <th>Verify Goals</th>
+            <th>Done Goals</th>
+        </thead>
+        <tr>
+            <td>{{user}}</td>
+            <td>{{goal_name}} - Goal-ID: {{goal_id}}</td>
+            <td>-----</td>
+            <td>-----</td>
+            <td>-----</td>
+        </tr>
+        <tr>
+            <td>{{user2 }}</td>
+            <td>-----</td>
+            <td>{{goal_name2}} - Goal-ID: {{goal_id2}}</td>
+            <td>-----</td>
+            <td>-----</td>
+        </tr>
+    </table> -->
+
+
+    <table>
+        <thead>
+            <th>User</th>
+            <th>Weekly Goals</th>
+            <th>Daily Goals</th>
+            <th>Verify Goals</th>
+            <th>Done Goals</th>
+        </thead>
+    {% if user %}
+    {% for username in user %}
+    <tr>
+        <td rowspan="1">
+            <p>{{username}}</p>
+        </td>
+        {% if weeklygoal %}
+        <td rowspan="1">
+            {%for scrumygoal in weeklygoal %}
+                {% if scrumygoal.user == username %}
+                    <p> <i>Goal ID:</i> {{scrumygoal.goal_id}} &nbsp; &nbsp; <i>Goal Name:</i> {{scrumygoal.goal_name}}</p>
+                {% endif %}
+            {% endfor %}
+        </td>
+        {% else %}
+        <td>-----</td>
+        {% endif %}
+
+        {% if dailygoal %}
+        <td rowspan="1">
+            {% for scrumygoal in dailygoal %}
+                {% if scrumygoal.user == username %}
+                    <p> <i>Goal ID:</i> {{scrumygoal.goal_id}} &nbsp; &nbsp; <i>Goal Name:</i> {{scrumygoal.goal_name}}</p>
+                {% endif %}
+            {% endfor %}
+        </td>
+        {% else %}
+        <td>-----</td>
+        {% endif %}
+
+        {% if verifygoal %}
+            <td rowspan="1">
+                {% for scrumygoal in verifygoal %}
+                    {% if scrumygoal.user == username %}
+                        <p> <i>Goal ID:</i> {{scrumygoal.goal_id}} &nbsp; &nbsp; <i>Goal Name:</i> {{scrumygoal.goal_name}}</p>
+                    {% endif %}
+                {% endfor %}
+        </td>
+        {% else %}
+        <td>-----</td>
+        {% endif %}
+
+        {% if donegoal %}
+            <td rowspan="1">
+                {% for scrumygoal in donegoal %}
+                    {% if scrumygoal.user == username %}
+                        <p> <i>Goal ID:</i> {{scrumygoal.goal_id}} &nbsp; &nbsp; <i>Goal Name:</i> {{scrumygoal.goal_name}}</p>
+                    {% endif %}
+                {% endfor %}
+        </td>
+        {% else %}
+        <td>-----</td>
+        {% endif %}
+    </tr>
+    {% endfor %}
+    {% endif %}
+    </table>
+</body>
+</html>

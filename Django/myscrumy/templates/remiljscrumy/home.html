@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=   , initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Django Home</title>
+</head>
+<style type="text/css">
+table{
+    width: 70%;
+    margin: auto;
+    border: 2px solid black;
+    background-color: brown;
+}
+th,td,tr{
+    border: 0.5px solid black;
+    text-align: center;
+}/*
+    button{
+            background: blue;
+            padding: 5px;
+            margin: auto;
+            text-decoration: none;
+            color: white;
+            float: right;
+            border: 1px solid white;
+        }*/
+    #show{
+        margin: 0px 0px 0px 80%;
+        font-size: 12px;
+        text-transform: uppercase;
+        width: 20%;
+        border:2px dashed brown;
+        text-align: center;
+    }
+    form{
+        margin: 100px auto;
+        background: brown;
+        width: 15%;
+        margin: auto;
+        height: 300%;
+        border: 1px ridge white;
+        align-content: center;
+        padding: 10px;
+        box-shadow: 2px;
+    }
+    button{
+        background: blue;
+        border:1px dashed white;
+        color: white;
+        margin: 10px 150px;
+    }
+    input{
+        border-radius: 5px;
+        width: 95%;
+    }
+    span{
+        display: inline;
+        float: right;
+    }
+    .log{
+        text-decoration: none;
+    }
+    </style>
+<body bgcolor="orange">
+     
+    <span>You are Currently Logged in  as:</span><br>
+    <div id="show">
+{% if groups %}
+{% for group in groups %}
+<p>{{ current }} -- {{ group }}</p>
+{% endfor %}
+</div>
+     <span><a class="log" href="/remiljscrumy/accounts/login"> LOGOUT</a></span>
+<br><br>
+    <table>
+        <tr>
+            <td>User</td>
+            <td>Weekly Goals</td>
+            <td>Daily Goals</td>
+            <td>Verify Goals</td>
+            <td>Done Goals</td>
+        </tr>
+        <!--<tr>
+            <td>{{user}}</td>
+            <td>{{goal_name}} --{{goal_id}}</td>
+            <td>{{goal_name1}} --{{goal_id1}}</td>
+            <td>-----</td>
+            <td>-----</td>
+        </tr>
+         <tr>
+            <td>{{user2}}</td>
+            <td></td>
+            <td>{{goal_name2}} --{{goal_id2}}</td>
+            <td>-----</td>
+            <td>-----</td>
+        </tr>-->
+    {%if user %}
+    {%for username in user%}
+    <tr>
+        <td rowspan="1">
+            <p>{{username}}</p>
+        </td>
+        {% if weeklygoal %}
+        <td rowspan="1">
+            {%for scrumygoal in weeklygoal %}
+                {% if scrumygoal.user == username %}
+                    <p> 
+                        {% if admin in groups  or owner in groups %}
+                        <a href="/remiljscrumy/{{scrumygoal.goal_id}}">Move Goal</a><br> 
+                        {% elif dev in groups and scrumygoal.user == current %}
+                                <a href="/remiljscrumy/{{scrumygoal.goal_id}}">Move Goal</a><br> 
+                        {% else %}
+                        {% endif %}
+                        {{scrumygoal.goal_id}} --
+                        {{scrumygoal.goal_name}}
+                    </p>
+                 {% endif %}
+            {% endfor %}
+        </td>
+        {% else %}
+        <td>-----</td>
+        {% endif %}
+
+        {% if dailygoal %}
+        <td rowspan="1">
+            {% for scrumygoal in dailygoal %}
+                {% if scrumygoal.user == username %}
+                    <p> 
+                        {% if admin in groups  or owner in groups %}
+                        <a href="/remiljscrumy/{{scrumygoal.goal_id}}">Move Goal</a><br> 
+                        {% elif dev in groups and scrumygoal.user == current %}
+                                <a href="/remiljscrumy/{{scrumygoal.goal_id}}">Move Goal</a><br>
+                        {% else %}
+                        {% endif %}
+                        {{scrumygoal.goal_id}} --
+                        {{scrumygoal.goal_name}}</p>
+               {% endif %}
+            {% endfor %}
+        </td>
+        {% else %}
+        <td>-----</td>
+        {% endif %}
+
+        {% if verifygoal %}
+            <td rowspan="1">
+                {% for scrumygoal in verifygoal %}
+                    {% if scrumygoal.user == username %}
+                       <p>
+                        {% if admin in groups or qa in groups or owner in groups %}
+                        <a href="/remiljscrumy/{{scrumygoal.goal_id}}">Move Goal</a><br> 
+                        {% elif dev in groups and scrumygoal.user == current %}
+                                <a href="/remiljscrumy/{{scrumygoal.goal_id}}">Move Goal</a><br>
+                        {% else %}
+                        {% endif %}
+                        {{scrumygoal.goal_id}} --
+                        {{scrumygoal.goal_name}}</p>
+                    {% endif %}
+                {% endfor %}
+        </td>
+        {% else %}
+        <td>-----</td>
+        {% endif %}
+
+        {% if donegoal %}
+            <td rowspan="1">
+                {% for scrumygoal in donegoal %}
+                    {% if scrumygoal.user == username %}
+                        <p>
+                        {% if admin in groups or qa in groups or owner in groups %}
+                        <a href="/remiljscrumy/{{scrumygoal.goal_id}}">Move Goal</a><br> 
+                        {% elif dev in groups and scrumygoal.user == current %}
+                                <a href="/remiljscrumy/{{scrumygoal.goal_id}}">Move Goal</a><br>
+                        {% else %}
+                        {% endif %}
+                        {{scrumygoal.goal_id}} --
+                        {{scrumygoal.goal_name}}</p>
+                    {% endif %}
+                {% endfor %}
+        </td>
+        {% else %}
+        <td>-----</td>
+        {% endif %}
+    </tr>
+    {% endfor%}
+    {% endif %}
+    </table>
+   <!--  <a class="add" href="/add_goal">Add new GOAL</a> -->
+
+<br/>
+{% if admin not in groups %}
+<div>
+   <form method="POST" action="">
+    {% csrf_token %}
+    {% for field in form %}
+    <p>
+        {{ field.label_tag }}<br>
+        {{ field }}
+    </p>
+    {% endfor %}
+ <button type="submit">ADD</button>       
+  </form>
+</div>
+{% endif %}
+{% else %}
+    <h1>You are not allowed to view this page until you login </h1>
+{% endif %}
+
+</body>
+</html>

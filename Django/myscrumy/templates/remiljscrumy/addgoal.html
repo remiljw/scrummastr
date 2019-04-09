@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ADD NEW GOAL(S)</title>
+</head>
+<style type="text/css">
+body{
+	background: orange;
+}
+	form{
+		background: brown;
+		width: 29%;
+		margin: auto;
+		height: 60%;
+		border: 1px ridge white;
+		align-content: center;
+		padding: 5px;
+	}
+	button{
+		background: blue;
+		border:1px dashed white;
+		color: white;
+		margin: 10px 150px;
+	}
+</style>
+<body>
+<form method="POST" action="">
+    {% csrf_token %}
+    {{ form.as_p }}
+ <button type="submit">ADD</button>   
+</form>
+</body>
+</html>

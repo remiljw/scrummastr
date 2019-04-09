@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Log In | Remiljwscrumy</title>
+</head>
+<style>
+body{
+  background-color: orange;
+}
+.authenticate{
+	margin:200px auto;
+	background-color:brown;
+	padding:10px;
+	width:20%;
+  height: inherit;
+	}
+	a{
+		text-decoration:none;
+		color:white;
+	}
+	a:hover{
+		color:red;
+	}
+  .log{
+    background: blue;
+    border-radius: 5px;
+  }
+  .input{
+    height: 20px;
+    border-radius: 5px;
+    width: 95%
+  }
+  button{
+    background-color: blue;
+    border: 1px blue;
+    color: white;
+    width: 97%;
+    height: 30px;
+  }
+</style>
+
+<body>
+
+
+ 
+  <div class="authenticate">
+    <form  method="POST" action="">
+       {% csrf_token %}
+       <label for="username">Username</label>
+       <input class="input" type="username" name="username" ><br><br>
+       <label for="Password">Password</label>
+       <input class="input" type="password" name="password" ><br><br>
+       <button type="submit">LOGIN</button></td>
+    </form>   
+  <table width="95%" align="center">
+  <tr>
+    <td ><a href="">Forgot Password</a></td>
+    <td align="right"><a href="/index">Create new account</a></td>
+  </tr>
+  <tr>
+    <td colspan="2">
+    <input type="checkbox" checked="checked" name="remember">Remember me
+  </tr>
+</table>
+{% if form.errors %} <p>There's an error in your login</p> {% endif %}
+
+</div>
+</body>
+</html>
